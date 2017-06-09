@@ -1,3 +1,5 @@
+// Copyright (c) 2017 James Pritts, Denys Rozumnyi
+// 
 #ifndef __MEXPLUSPLUS_EIGEN_HPP__
 #define __MEXPLUSPLUS_EIGEN_HPP__
 
@@ -11,6 +13,5 @@
 
 #include "mexplusplus/eigen/vector.hpp"
 #include "mexplusplus/eigen/sparse.hpp"
-
 
 #endif

@@ -1,26 +1,10 @@
+// Copyright (c) 2017 James Pritts, Denys Rozumnyi
+// 
 #ifndef __MEXPLUSPLUS_EIGEN_VECTOR_HPP__
 #define __MEXPLUSPLUS_EIGEN_VECTOR_HPP__
 
 template <typename Scalar,int M>
 using VectorN = Eigen::Matrix<Scalar,M,1>; 
-
-template <typename Scalar,int M>
-mxArray*
-eigen_to_matlab(const std::vector<VectorN<Scalar,M> >& u)
-{
-  size_t n = u.size();
-  if (n > 0) {
-    size_t m = u[0].rows();
-    mexplus::MxArray numeric(mexplus::MxArray::Numeric<Scalar>(m,n));
-    size_t j = 0;
-    for (const auto& u_i : u) {
-      for (size_t i=0; i<m; i++)  // rows
-	numeric.set(i,j,u_i.derived().coeff(i,0));
-      j++;
-    }
-    return numeric.release();
-  }
-}
 
 template <typename Scalar,int M>
 std::vector<VectorN<Scalar,M> >
@@ -40,6 +24,24 @@ matlab_to_eigen(const mxArray* array)
   }
 
   return u;
+}
+
+template <typename Scalar,int M>
+mxArray*
+eigen_to_matlab(const std::vector<VectorN<Scalar,M> >& u)
+{
+  size_t n = u.size();
+  if (n > 0) {
+    size_t m = u[0].rows();
+    mexplus::MxArray numeric(mexplus::MxArray::Numeric<Scalar>(m,n));
+    size_t j = 0;
+    for (const auto& u_i : u) {
+      for (size_t i=0; i<m; i++)  // rows
+	numeric.set(i,j,u_i.derived().coeff(i,0));
+      j++;
+    }
+    return numeric.release();
+  }
 }
 
 namespace mexplus  {

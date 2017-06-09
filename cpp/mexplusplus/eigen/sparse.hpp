@@ -1,5 +1,7 @@
-#ifndef MEANSHIFT_SPARSE_MATLAB_EIGEN_HPP_
-#define MEANSHIFT_SPARSE_MATLAB_EIGEN_HPP_
+// Copyright (c) 2017 James Pritts, Denys Rozumnyi
+// 
+#ifndef __MEANSHIFT_SPARSE_MATLAB_EIGEN_HPP__
+#define __MEANSHIFT_SPARSE_MATLAB_EIGEN_HPP__
 
 #include <eigen3/Eigen/Sparse>
 
@@ -24,7 +26,7 @@ matlab_to_eigen(const mxArray* array, Eigen::SparseMatrix<Scalar,Majority>* u)
   tripletList.reserve(nnz);
   int j = 0;
   for(int k=0; k<nnz; k++)
-  {
+    {
       while (jc[j+1] <= k) {
         j++;
         if(j > n+1) {
@@ -34,7 +36,7 @@ matlab_to_eigen(const mxArray* array, Eigen::SparseMatrix<Scalar,Majority>* u)
       }
       if (j == -1) { break; }
       tripletList.push_back(T(ir[k],j,pr[k]));
-  }
+    }
   u->setFromTriplets(tripletList.begin(), tripletList.end());
 }
 
